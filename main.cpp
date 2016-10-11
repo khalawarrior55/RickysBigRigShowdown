@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
+#include "Entity.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -10,14 +12,9 @@ int main(int argc, char ** argv)
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
     // Load a sprite to display
     sf::Texture texture;
-    if (!texture.loadFromFile("cute_image.jpg"))
+    if (!texture.loadFromFile("shit.png"))
         return EXIT_FAILURE;
-    sf::Sprite sprite(texture);
     // Create a graphical text to display
-    sf::Font font;
-    if (!font.loadFromFile("arial.ttf"))
-        return EXIT_FAILURE;
-    sf::Text text("Hello SFML", font, 50);
     // Load a music to play
     // sf::Music music;
     // if (!music.openFromFile("nice_music.ogg"))
@@ -25,6 +22,8 @@ int main(int argc, char ** argv)
     // Play the music
     // music.play();
     // Start the game loop
+    Player pizza(texture);
+    pizza.setWindow(window);
     while (window.isOpen())
     {
         // Process events
@@ -34,13 +33,15 @@ int main(int argc, char ** argv)
             // Close window: exit
             if (event.type == sf::Event::Closed)
                 window.close();
+            if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+                window.close();
         }
         // Clear screen
         window.clear();
-        // Draw the sprite
-        window.draw(sprite);
-        // Draw the string
-        window.draw(text);
+
+        pizza.update();
+        pizza.draw();
+
         // Update the window
         window.display();
     }
