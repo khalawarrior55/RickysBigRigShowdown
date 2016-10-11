@@ -24,6 +24,9 @@ int main(int argc, char ** argv)
     // Start the game loop
     Player pizza(texture);
     pizza.setWindow(window);
+    sf::RectangleShape floor(sf::Vector2f(800, 10));
+    floor.setFillColor(sf::Color::Blue);
+    floor.setPosition(sf::Vector2f(0, 450));
     while (window.isOpen())
     {
         // Process events
@@ -38,7 +41,7 @@ int main(int argc, char ** argv)
         }
         // Clear screen
         window.clear();
-
+        window.draw(floor);
         pizza.update();
         pizza.draw();
 
