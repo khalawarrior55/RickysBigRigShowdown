@@ -10,9 +10,9 @@ Player::Player(sf::Texture & texture) : Entity(texture){
     onGround = true;
     movementSpeed = 1;
     yAccel = 0;
-    xCord = 400;
+    xCord = 150;
     yCord = 400;
-    rect.setPosition(sf::Vector2f(400, 400));
+    rect.setPosition(sf::Vector2f(150, 400));
 }
 
 Player::Player(sf::Texture & texture, sf::RenderWindow & window) : Entity(texture, window){
@@ -21,9 +21,9 @@ Player::Player(sf::Texture & texture, sf::RenderWindow & window) : Entity(textur
     onGround = true;
     movementSpeed = 1;
     yAccel = 0;       
-    xCord = 400;
+    xCord = 150;
     yCord = 400;
-    rect.setPosition(sf::Vector2f(400, 400));
+    rect.setPosition(sf::Vector2f(150, 400));
 }
 
 void Player::controls(){
@@ -43,10 +43,10 @@ void Player::jump(){
     updatePos();
     if (!onGround){
         rect.move(0, -yAccel);
-        yAccel -= .00001;
+        yAccel -= .0000007;
         if (yCord > 400.0){
             onGround = true;
-            rect.setPosition(400, 400);
+            rect.setPosition(150, 400);
         }
     }
 }
@@ -56,6 +56,4 @@ void Player::update(){
     controls();
     jump();
     sprite.setPosition(rect.getPosition());
-    cout << yCord << endl;
-    
 }
