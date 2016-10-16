@@ -28,7 +28,7 @@ Player::Player(sf::Texture & texture, sf::RenderWindow & window) : Entity(textur
 
 void Player::controls(){
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && yCord == 400){
-        yAccel = .01;
+        yAccel = 4;
         onGround = false;
     }
 }
@@ -43,7 +43,7 @@ void Player::jump(){
     updatePos();
     if (!onGround){
         rect.move(0, -yAccel);
-        yAccel -= .0000007;
+        yAccel -= .1;
         if (yCord > 400.0){
             onGround = true;
             rect.setPosition(150, 400);

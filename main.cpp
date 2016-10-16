@@ -4,6 +4,7 @@
 #include <string>
 #include "Entity.h"
 #include "Player.h"
+#include "Banjo.h"
 
 using namespace std;
 
@@ -11,7 +12,7 @@ int main(int argc, char ** argv)
 {
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
-    //window.setFramerateLimit(60);
+    window.setFramerateLimit(60);
 
     // Create a clock for the framerate
     sf::Clock clock;
@@ -30,12 +31,6 @@ int main(int argc, char ** argv)
     fps.setFont(arial);
     fps.setColor(sf::Color::White);
 
-
-    // Create a graphical text to display
-    // Load a music to play
-    // sf::Music music;
-    // if (!music.openFromFile("nice_music.ogg"))
-    //     return EXIT_FAILURE;
     // Creates the pizza texture
     Player pizza(texture);
     pizza.setWindow(window);
@@ -45,6 +40,7 @@ int main(int argc, char ** argv)
     floor.setFillColor(sf::Color::Blue);
     floor.setPosition(sf::Vector2f(0, 450));
 
+    Banjo banjo(texture, window);
     // Begin Game loop
     while (window.isOpen())
     {
@@ -63,6 +59,7 @@ int main(int argc, char ** argv)
         window.draw(floor);
         pizza.update();
         pizza.draw();
+        banjo.update();
 
         // Calculate Framerate
         sf::Time frTime = clock.getElapsedTime();
