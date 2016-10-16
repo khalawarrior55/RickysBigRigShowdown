@@ -12,6 +12,7 @@ public:
     Banjo(sf::Texture & texture);
     Banjo(sf::Texture & texture, sf::RenderWindow & window);
     void update();
+    void update(sf::RenderWindow & window);
 };
 
 #endif

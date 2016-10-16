@@ -2,6 +2,7 @@
 #include <SFML/Audio.hpp>
 #include <iostream>
 #include <string>
+#include <vector>
 #include "Entity.h"
 #include "Player.h"
 #include "Banjo.h"
@@ -15,8 +16,11 @@ int main(int argc, char ** argv)
     window.setFramerateLimit(60);
 
     // Create a clock for the framerate
-    sf::Clock clock;
+    sf::Clock clockFPS;
 
+    // Clock for banjo separation
+    sf::Clock banjoClock;
+    sf::Time banjoTime;
     // Load a sprite to display
     sf::Texture texture;
     if (!texture.loadFromFile("shit.png"))
@@ -40,7 +44,12 @@ int main(int argc, char ** argv)
     floor.setFillColor(sf::Color::Blue);
     floor.setPosition(sf::Vector2f(0, 450));
 
+    vector<Banjo> banjoVect;
+    vector<Banjo>::iterator it;
     Banjo banjo(texture, window);
+
+    int counter = 0;
+
     // Begin Game loop
     while (window.isOpen())
     {
@@ -54,23 +63,38 @@ int main(int argc, char ** argv)
             if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
                 window.close();
         }
+
+        banjoTime = banjoClock.getElapsedTime();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && banjoTime.asSeconds() > 1)
+        {
+            Banjo * b = new Banjo(texture, window);
+            banjoVect.push_back(*b);
+            delete b;
+            banjoClock.restart();
+        }
+
         // Clear screen
         window.clear();
+
+        // Draw Stuff
         window.draw(floor);
         pizza.update();
         pizza.draw();
-        banjo.update();
+        for( it = banjoVect.begin(); it != banjoVect.end(); ++it)
+        {
+            it->update();
+        }
 
         // Calculate Framerate
-        sf::Time frTime = clock.getElapsedTime();
-        std::cout << 1.0f / frTime.asSeconds() << std::endl;        
+        sf::Time frTime = clockFPS.getElapsedTime();
         int fpsFloat = 1.0f / frTime.asSeconds();
         string fpsString = "FPS: " + std::to_string(fpsFloat);
         fps.setString(fpsString);
 
         window.draw(fps);
         
-        clock.restart().asSeconds();
+        clockFPS.restart().asSeconds();
+        //std::cout << banjoVect.size() << std::endl;
 
         // Update the window
         window.display();
