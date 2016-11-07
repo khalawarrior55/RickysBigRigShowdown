@@ -35,3 +35,8 @@ void Entity::setPosition(const sf::Vector2f & pos){
 void Entity::setWindow(sf::RenderWindow & window){
     this->window = &window;
 }
+
+sf::FloatRect Entity::getBounds()
+{
+    return rect.getGlobalBounds();
+}

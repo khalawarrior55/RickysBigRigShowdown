@@ -33,11 +33,10 @@ int main(int argc, char ** argv)
 
     sf::Text fps;
     fps.setFont(arial);
-    fps.setColor(sf::Color::White);
 
     // Creates the pizza texture
-    Player pizza(texture);
-    pizza.setWindow(window);
+    Player player(texture);
+    player.setWindow(window);
 
     // Creates a floor on screen
     sf::RectangleShape floor(sf::Vector2f(800, 10));
@@ -78,11 +77,21 @@ int main(int argc, char ** argv)
 
         // Draw Stuff
         window.draw(floor);
-        pizza.update();
-        pizza.draw();
-        for( it = banjoVect.begin(); it != banjoVect.end(); ++it)
+        player.update();
+        player.draw();
+        for(int i = 0; i < banjoVect.size(); ++i)
         {
-            it->update();
+            if(banjoVect[i].getXpos() < -50)
+            {
+                banjoVect.erase(banjoVect.begin() + i);
+            }
+            else
+            {
+                banjoVect[i].update();
+                if(player.getBounds().intersects(banjoVect[i].getBounds()))
+                    std::cout << "INTERSECT" << std::endl;
+            }
+                
         }
 
         // Calculate Framerate

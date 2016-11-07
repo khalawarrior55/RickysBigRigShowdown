@@ -22,6 +22,11 @@ Banjo::Banjo(sf::Texture & texture, sf::RenderWindow & window) : Entity(texture,
     movementSpeed = SPEED;
 }
 
+float Banjo::getXpos()
+{
+    return rect.getPosition().x;
+}
+
 void Banjo::update()
 {
     rect.move(-movementSpeed, 0);

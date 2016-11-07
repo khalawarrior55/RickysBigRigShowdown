@@ -7,10 +7,12 @@ class Banjo : public Entity
 {
 protected:
     float movementSpeed;
+    float xPos;
 public:
     Banjo();
     Banjo(sf::Texture & texture);
     Banjo(sf::Texture & texture, sf::RenderWindow & window);
+    float getXpos();
     void update();
     void update(sf::RenderWindow & window);
 };
